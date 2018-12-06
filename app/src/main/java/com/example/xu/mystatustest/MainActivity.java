@@ -1,13 +1,16 @@
 package com.example.xu.mystatustest;
 
 
-
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+
 import com.example.xu.mystatustest.adapter.TestAdapter;
 import com.example.xu.mystatustest.statusbar.StatusBarCompat;
 

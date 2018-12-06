@@ -56,11 +56,12 @@ public class StatusBarCompat {
     }
 
     /**
-     *  透明状态栏
+     * 透明状态栏
+     *
      * @param activity
      */
     public static void translucentStatusBar(@NonNull Activity activity) {
-        translucentStatusBar(activity, false);
+        translucentStatusBar(activity, true);
     }
 
     /**
@@ -69,11 +70,17 @@ public class StatusBarCompat {
      * @param hideStatusBarBackground hide status bar alpha Background when SDK > 21, true if hide it
      */
     public static void translucentStatusBar(@NonNull Activity activity, boolean hideStatusBarBackground) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {   // >= 24
+        // api >= 28
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            StatusBarCompatP.setFullScreenWindowLayout(activity.getWindow());
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            // api >= 24
             StatusBarCompatN.transparentStatusBarN(activity);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {  // >= 21
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // >= 21
             StatusBarCompatLollipop.translucentStatusBar(activity, hideStatusBarBackground);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {   // >= 19
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // >= 19
             StatusBarCompatKitKat.translucentStatusBar(activity);
         }
     }
