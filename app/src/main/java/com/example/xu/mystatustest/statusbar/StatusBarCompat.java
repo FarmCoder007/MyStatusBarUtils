@@ -66,6 +66,7 @@ public class StatusBarCompat {
 
     /**
      * change to full screen mode
+     * 适配设置透明状态栏
      *
      * @param hideStatusBarBackground hide status bar alpha Background when SDK > 21, true if hide it
      */
@@ -73,10 +74,12 @@ public class StatusBarCompat {
         // api >= 28
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             StatusBarCompatP.setFullScreenWindowLayout(activity.getWindow());
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            // api >= 24
-            StatusBarCompatN.transparentStatusBarN(activity);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        }
+////        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+////            // api >= 24
+////            StatusBarCompatN.transparentStatusBarN(activity);
+////        }
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // >= 21
             StatusBarCompatLollipop.translucentStatusBar(activity, hideStatusBarBackground);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -85,6 +88,15 @@ public class StatusBarCompat {
         }
     }
 
+    /**
+     * 适配带折叠头的状态栏
+     *
+     * @param activity
+     * @param appBarLayout
+     * @param collapsingToolbarLayout
+     * @param toolbar
+     * @param statusColor
+     */
     public static void setStatusBarColorForCollapsingToolbar(@NonNull Activity activity, AppBarLayout appBarLayout, CollapsingToolbarLayout collapsingToolbarLayout,
                                                              Toolbar toolbar, @ColorInt int statusColor) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

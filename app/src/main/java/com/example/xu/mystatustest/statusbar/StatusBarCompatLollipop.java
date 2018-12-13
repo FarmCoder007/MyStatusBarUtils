@@ -18,14 +18,14 @@ import android.view.WindowManager;
 
 /**
  * Created by xu on 2018/7/23.
- * sdk.version>=21    5.0以上
+ * sdk.version>=21    适配5.0以上状态栏工具栏
  */
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-class StatusBarCompatLollipop {
+public class StatusBarCompatLollipop {
 
     /**
-     * return statusBar's Height in pixels
+     * 获取状态栏高度
      */
     private static int getStatusBarHeight(Context context) {
         int result = 0;
@@ -38,7 +38,7 @@ class StatusBarCompatLollipop {
 
     /**
      * set StatusBarColor
-     * <p>
+     * 状态栏设置成指定颜色
      * 1. set Flags to call setStatusBarColor
      * 2. call setSystemUiVisibility to clear translucentStatusBar's Flag.
      * 3. set FitsSystemWindows to false
@@ -61,13 +61,13 @@ class StatusBarCompatLollipop {
 
     /**
      * translucentStatusBar(full-screen)
-     * <p>
+     * 适配普通透明状态栏
      * 1. set Flags to full-screen
      * 2. set FitsSystemWindows to false
      *
-     * @param hideStatusBarBackground hide statusBar's shadow
+     * @param hideStatusBarBackground 是否隐藏状态栏的阴影蒙层
      */
-    static void translucentStatusBar(Activity activity, boolean hideStatusBarBackground) {
+    public static void translucentStatusBar(Activity activity, boolean hideStatusBarBackground) {
         Window window = activity.getWindow();
 
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -89,7 +89,26 @@ class StatusBarCompatLollipop {
     }
 
     /**
+     *  设置5.0以上顶部状态栏  和  底部导航栏都透明
+     * @param activity
+     */
+    public static void translucentStatusAndNavigationBar(Activity activity) {
+        Window window = activity.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        // 设置状态栏透明
+        window.setStatusBarColor(Color.TRANSPARENT);
+        // 设置底部导航栏透明
+        window.setNavigationBarColor(Color.TRANSPARENT);
+    }
+
+    /**
      * compat for CollapsingToolbarLayout
+     * 适配折叠头 状态栏
      * <p>
      * 1. change to full-screen mode(like translucentStatusBar).
      * 2. set View's FitsSystemWindow to false.

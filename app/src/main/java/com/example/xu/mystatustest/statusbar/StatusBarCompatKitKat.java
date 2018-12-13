@@ -20,7 +20,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 /**
- *  Android 4.4以上
+ * Android 4.4以上  状态栏适配
  * sdk.version>=19
  */
 @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -30,7 +30,7 @@ class StatusBarCompatKitKat {
     private static final String TAG_MARGIN_ADDED = "marginAdded";
 
     /**
-     * return statusBar's Height in pixels
+     * 获取状态栏高度
      */
     private static int getStatusBarHeight(Context context) {
         int result = 0;
